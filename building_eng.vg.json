@@ -1,0 +1,15 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Value of Construction work done by Engineering and building industries",
+    "width":"container",
+    "data": {"url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/data/8755002.csv"},
+    "mark": "line",
+    "encoding": {
+      "x": {"field": "Date", "type": "temporal",
+      "timeUnit":"yearquarter",
+      "title": "Date"},
+      "y": {"field": "Value($mil)", "type": "quantitative"},
+      "color": {"field": "Type", "type": "nominal"}
+    }
+  }
+  

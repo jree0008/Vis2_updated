@@ -1,0 +1,59 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Value of Infrastucture Work done, planned and commenced by Industry",
+  "width": 1000,
+  "data": {"url":"https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/data/8762006.csv"
+   
+  },
+  
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 1988,
+      "bind": {
+        "input": "range",
+        "min": 1988,
+        "max": 2021,
+        "step": 1,
+        "name": "Year:  "
+      }
+    }
+],
+
+ "repeat": {"layer": ["Value of work commenced", "Value of work done","Value of work yet to be done"]},
+  "spec": {
+    "mark": "bar",
+      "transform": [{"filter": "datum.Year == Year_selection"}
+  ],
+    "encoding": {
+      "x": {
+        "field": "Industry",
+        "type": "nominal",
+        "sort": {"op": "mean", "field": "Value of work done", "order":"descending"}
+
+      },
+      "y": {
+        
+        "field": {"repeat": "layer"},
+        "type": "quantitative",
+        "title": "Total Value ($,000)",
+        "scale" :{ "domain":[0, 500000000]}
+        
+        
+        
+      },
+      "color": {"datum": {"repeat": "layer"}, "title": "Key"},
+      "xOffset": {"datum": {"repeat": "layer"}},
+      "tooltip": [
+             {"field": "Industry", "type": "nominal", "title": "Industry"},
+             {"field": "Year"},
+             {"field": "Value of work commenced", "type": "quantitative"},
+             {"field": "Value of work done" },
+             {"field": "Value of work yet to be done"}
+             ]
+    }
+  },
+  "config": {
+    "mark": {"invalid": null}
+  }
+}

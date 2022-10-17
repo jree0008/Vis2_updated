@@ -1,0 +1,27 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/data/8762006.csv"},
+  "width": 610, "height": 175,
+  "title" : "Normalised Value of Work done by Industry",
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "axis": {"domain": false}
+    },
+    "y": {
+      "field": "Value of work done",
+      "type": "quantitative",
+      "axis": null,
+      "stack": "normalize"
+
+    },
+    "color": {
+    "field":"Industry",
+    "type": "nominal",
+    "sort": {"op": "sum", "field": "Value of work done", "order" :"descending"},
+    "scale": {"scheme": "category20b"}
+  }
+}
+}

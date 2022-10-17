@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Value of Infrastructure Work Done for all States and Territories",
+  "width" :700,
+  "height": 400,
+  "projection": {
+       "type": "albers",
+       "scale": 700,
+       "rotate":[-140, 37, 0],
+       "center": [-6, 9]},
+"params": [
+    {
+      "name": "Year_selection",
+      "value": 1988,
+      "bind": {
+        "input": "range",
+        "min": 1988,
+        "max": 2021,
+        "step": 1,
+        "name": "Year:  "
+      }
+    }
+],
+       
+  "layer":[
+     {
+       "data": {"url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/ne_50m.json",
+           "format": {"type": "topojson","feature": "ne_50m_admin_1_states_provinces" }
+       },
+       "transform": [
+         {
+           "calculate": "'Data is not available in ' + datum.properties.name",
+           "as": "note"
+         }
+       ],
+       "mark": {
+         "type": "geoshape",
+         "fill": "#ddd",
+         "stroke": "white",
+         "strokeWidth": 1
+       },
+       "encoding": {"tooltip": {"field": "note"}}
+     },
+ 
+    {"data": {
+  "url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/data/Value_of_work_done.csv"
+  },
+     "transform": [ 
+       {
+         "lookup": "State",
+         "from": {
+           "data": {"url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/ne_50m.json",
+           "format": {"type": "topojson","feature": "ne_50m_admin_1_states_provinces" }
+           },
+           "key": "properties.name"
+           },
+           "as" : "geo"  
+           },
+ 
+           {"filter": "datum.Year == Year_selection"}
+           ],
+           "mark": {"type": "geoshape"},
+           "encoding": {
+         "shape": {"field": "geo", "type": "geojson"},
+           "color": {
+             "field": "Value",
+             "type": "quantitative",
+             "scale": {"type": "linear", "domain":[1000000, 3000000]},
+             "title": "$,000 per 100,000"
+             },
+             "tooltip": [
+               {"field": "State", "type": "nominal", "title": "State"},
+               {"field": "Value", "type": "quantitative"}
+               ]
+           }}
+  ]
+  
+ }
+
+ 

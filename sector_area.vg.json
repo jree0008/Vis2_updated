@@ -1,0 +1,50 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {"url": "https://raw.githubusercontent.com/jree0008/FIT3179-Vis-2/main/data/8762001.csv"},
+    "vconcat": [{
+      "width": 1000,
+      "mark": "area",
+      "encoding": {
+      "x": {
+        "field": "Date",
+        "type": "temporal",
+        "scale": {"domain": {"param": "brush"}},
+        "axis": {"title": ""}
+      },
+      "y": {
+        "field": "Value",
+        "type": "quantitative",
+        "title": "Total Value ($)"
+      },
+      "color": {
+        "field": "Sector",
+        "type": "nominal"
+      }
+    }
+    }, {
+      "width": 1000,
+      "height": 60,
+      "mark": "area",
+      "params": [{
+        "name": "brush",
+        "select": {"type": "interval", "encodings": ["x"]}
+      }],
+      "encoding": {
+        "x": {
+          "field": "Date",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Total Value ($)",
+          "axis": {"tickCount": 3, "grid": false}
+        },
+        "color":{
+          "field":"Sector",
+          "type": "nominal"
+        }
+      }
+    }]
+  }
+  
